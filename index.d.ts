@@ -3,7 +3,10 @@ import { ReactElement } from 'react'
 declare type CompRef<RefProps> = (ref: RefProps | null) => void
 declare type CompGnt<RefProps> = (refCb: CompRef<RefProps>) => ReactElement
 
-declare class ReactGlobalComp<Id extends string, RefProps extends any> {
+declare class ReactGlobalComp<
+  RefProps extends any,
+  Id extends string = string
+> {
   readonly id: Id
   readonly compGnt: CompGnt<RefProps>
   private $ref

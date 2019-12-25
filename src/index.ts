@@ -4,7 +4,10 @@ import ReactDOM from 'react-dom'
 export type CompRef<RefProps> = (ref: RefProps | null) => void
 export type CompGnt<RefProps> = (refCb: CompRef<RefProps>) => ReactElement
 
-export default class ReactGlobalComp<Id extends string, RefProps extends any> {
+export default class ReactGlobalComp<
+  RefProps extends any,
+  Id extends string = string
+> {
   readonly id!: Id
   readonly compGnt!: CompGnt<RefProps>
   private $ref!: RefProps
