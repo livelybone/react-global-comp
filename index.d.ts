@@ -2,11 +2,16 @@ import { ReactElement } from 'react'
 
 declare type CompRef<RefProps> = (ref: RefProps | null) => void
 declare type CompGnt<RefProps> = (refCb: CompRef<RefProps>) => ReactElement
+
 declare class ReactGlobalComp<Id extends string, RefProps extends any> {
   readonly id: Id
   readonly compGnt: CompGnt<RefProps>
-  ref: RefProps
+  private $ref
+
   constructor(id: Id, comp: CompGnt<RefProps>)
+
+  get ref(): Promise<RefProps>
+
   private render
 }
 
