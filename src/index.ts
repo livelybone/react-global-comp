@@ -1,8 +1,10 @@
 import { ReactElement } from 'react'
 import ReactDOM from 'react-dom'
 
-export type CompRef<RefProps> = (ref: RefProps | null) => void
-export type CompGnt<RefProps> = (refCb: CompRef<RefProps>) => ReactElement
+export type CompRef<RefProps extends any> = (ref: RefProps | null) => void
+export type CompGnt<RefProps extends any> = (
+  refCb: CompRef<RefProps>,
+) => ReactElement
 
 export default class ReactGlobalComp<
   RefProps extends any,

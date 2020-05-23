@@ -1,7 +1,9 @@
 import { ReactElement } from 'react'
 
-declare type CompRef<RefProps> = (ref: RefProps | null) => void
-declare type CompGnt<RefProps> = (refCb: CompRef<RefProps>) => ReactElement
+declare type CompRef<RefProps extends any> = (ref: RefProps | null) => void
+declare type CompGnt<RefProps extends any> = (
+  refCb: CompRef<RefProps>,
+) => ReactElement
 
 declare class ReactGlobalComp<
   RefProps extends any,
