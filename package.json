@@ -1,6 +1,6 @@
 {
   "name": "react-global-comp",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A class for create global react component api",
   "main": "./lib/umd/index.js",
   "module": "./lib/es/index.js",
