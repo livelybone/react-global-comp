@@ -1,39 +1,35 @@
-import { ReactElement } from 'react'
+import React, { ComponentType } from 'react'
 import ReactDOM from 'react-dom'
 
-export type CompRef<RefProps extends any = any> = (ref: RefProps | null) => void
-export type CompGnt<RefProps extends any = any> = (
-  refCb: CompRef<RefProps>,
-) => ReactElement
+export default class ReactGlobalComp<Props extends Record<string, any>> {
+  readonly id!: string
+  readonly comp!: ComponentType<Props>
+  readonly preProps!: Props
+  ref?: any
 
-export default class ReactGlobalComp<
-  RefProps extends any = any,
-  Id extends string = string
-> {
-  readonly id!: Id
-  readonly compGnt!: CompGnt<RefProps>
-  private $ref!: RefProps
-
-  constructor(id: Id, comp: CompGnt<RefProps>) {
+  constructor(id: string, comp: ComponentType<Props>) {
     this.id = id
-    this.compGnt = comp
+    this.comp = comp
   }
 
-  get ref() {
-    return this.render().then(() => this.$ref)
-  }
-
-  private render() {
+  render(props?: Partial<Props>) {
     return new Promise(res => {
       let dom = document.getElementById(this.id)
-      if (dom) res()
-      else {
+      if (!dom) {
         dom = document.createElement('div')
         dom.id = this.id
         document.body.appendChild(dom)
       }
+      const $props: Props = { ...this.preProps, ...props }
       ReactDOM.render(
-        this.compGnt(ref => (this.$ref = ref!)),
+        React.createElement(this.comp, {
+          ...$props,
+          ref: (el: any) => {
+            this.ref = el
+            if (typeof $props.ref === 'function') $props.ref(el)
+            else if ($props.ref) $props.ref.current = el
+          },
+        }),
         dom,
         res,
       )
