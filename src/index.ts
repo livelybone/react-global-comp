@@ -35,4 +35,16 @@ export default class ReactGlobalComp<Props extends Record<string, any>> {
       )
     })
   }
+
+  destroy() {
+    return new Promise(res => {
+      const dom = document.getElementById(this.id)
+      if (dom) {
+        ReactDOM.render(React.createElement(React.Fragment), dom, res)
+      } else {
+        console.warn(new Error('Comp did not render yet'))
+        res()
+      }
+    })
+  }
 }

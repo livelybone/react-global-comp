@@ -7,6 +7,7 @@ declare class ReactGlobalComp<Props extends Record<string, any>> {
   ref?: any
   constructor(id: string, comp: ComponentType<Props>)
   render(props?: Partial<Props>): Promise<unknown>
+  destroy(): Promise<unknown>
 }
 
 export default ReactGlobalComp

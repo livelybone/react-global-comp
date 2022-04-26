@@ -1,6 +1,6 @@
 {
   "name": "react-global-comp",
-  "version": "2.0.4",
+  "version": "2.1.0",
   "description": "A class for create global react component api",
   "main": "./lib/umd/index.js",
   "module": "./lib/es/index.js",
@@ -16,6 +16,8 @@
     "test": "npm run build:test && cross-env NODE_ENV=test istanbul cover node_modules/mocha/bin/_mocha -- ./test",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
     "prepublishOnly": "npm run build && npm run build:dts && npm run eslint",
+    "release": "npm publish --registry=https://registry.npmjs.org",
+    "release:alpha": "npm publish --tag alpha --registry=https://registry.npmjs.org",
     "commit": "git-cz"
   },
   "repository": {
